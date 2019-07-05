@@ -2,7 +2,7 @@
 
 const createReader = require('gtfs-to-leveldb/reader')
 const createLevel = require('level')
-const { difference, isNaN } = require('lodash')
+const { difference, isNaN, round } = require('lodash')
 const lineColours = require('vbb-line-colors')
 const levelDirectory = './vbb-gtfs-level'
 
@@ -64,12 +64,16 @@ const main = async () => {
 		const stops = await Promise.all(line.stopIds.map(stopId => gtfsReader.stop(stopId)))
 		// eslint-disable-next-line camelcase
 		const locations = stops.map(({ stop_lon, stop_lat }) => [+stop_lon, +stop_lat]).filter(([lon, lat]) => !isNaN(lon) && !isNaN(lat))
-		points.push(...locations.map(location => [...location, {
-			ref: line.lineName,
-			product: line.product,
-			backgroundColour: line.colour.bg,
-			textColour: line.colour.fg
-		}]))
+		points.push(...locations.map(([lon, lat]) => [
+			round(lon, 2) * 100,
+			round(lat, 2) * 100,
+			{
+				ref: line.lineName,
+				product: line.product,
+				backgroundColour: line.colour.bg,
+				textColour: line.colour.fg
+			}
+		]))
 	}
 
 	process.stdout.write(JSON.stringify(points))
