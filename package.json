@@ -1,6 +1,6 @@
 {
 	"name": "vbb-line-colour-points",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "VBB line colour information to be used by hafas-osm-line-colours.",
 	"keywords": [
 		"colors",
