@@ -1,0 +1,53 @@
+{
+	"name": "vbb-line-colour-points",
+	"version": "0.0.0",
+	"description": "VBB line colour information to be used by hafas-osm-line-colours.",
+	"keywords": [
+		"colors",
+		"colours",
+		"hafas",
+		"line",
+		"lines",
+		"vbb",
+		"transit"
+	],
+	"homepage": "https://github.com/juliuste/vbb-line-colour-points",
+	"bugs": "https://github.com/juliuste/vbb-line-colour-points/issues",
+	"repository": "juliuste/vbb-line-colour-points",
+	"license": "ISC",
+	"author": "Julius Tens <mail@juliustens.eu>",
+	"files": [
+		"points.json"
+	],
+	"main": "points.json",
+	"scripts": {
+		"build": "npm run download-gtfs && npm run build-from-gtfs",
+		"build-from-gtfs": "node build/index > points.json",
+		"check-deps": "depcheck",
+		"download-gtfs": "./build/download.sh",
+		"fix": "eslint --fix build",
+		"lint": "eslint build",
+		"prepublishOnly": "npm run build && npm test",
+		"test": "npm run lint && npm run check-deps"
+	},
+	"devDependencies": {
+		"depcheck": "^0.8.2",
+		"eslint": "^6.0.1",
+		"eslint-config-standard": "^12.0.0",
+		"eslint-plugin-import": "^2.18.0",
+		"eslint-plugin-node": "^9.1.0",
+		"eslint-plugin-promise": "^4.2.1",
+		"eslint-plugin-standard": "^4.0.0",
+		"gtfs-to-leveldb": "^0.2.0",
+		"hafas-osm-line-colours": "^0.1.1",
+		"level": "^5.0.1",
+		"lodash": "^4.17.11",
+		"osm-transit-lines": "^0.2.0"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"dependencies": {
+		"vbb-line-colors": "^1.0.0"
+	}
+}
